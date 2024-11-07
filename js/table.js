@@ -34,7 +34,17 @@ function table() {
     // two different calls to enter() and data(), or with two different loops.
 
     // YOUR CODE HERE
+    let rows = table.append('tbody')
+      .selectAll('tr')
+      .data(data)
+      .enter()
+      .append('tr'); 
 
+    rows.selectAll('td')
+      .data(d => Object.values(d))
+      .enter()
+      .append('td')
+      .text(d => d);
 
     // Then, add code to allow for brushing.  Note, this is handled differently
     // than the line chart and scatter plot because we are not using an SVG.
@@ -48,7 +58,42 @@ function table() {
     // and when the mouse is down, keep track of any rows that have been mouseover'd
 
     // YOUR CODE HERE
+    // Brushing functionality
+    let isMouseDown = false;
+    let selectedRows = new Set();
 
+    // Track mouse events for brushing
+    rows.on("mousedown", function(event, d) {
+      isMouseDown = true;
+      const row = d3.select(this);
+      const isSelected = row.classed("highlighted");
+
+      // Toggle selection on mousedown
+      if (isSelected) {
+        row.classed("highlighted", false);
+        selectedRows.delete(d);
+      } else {
+        row.classed("highlighted", true);
+        selectedRows.add(d);
+      }
+
+      // Dispatch selection event to link with other visualizations
+      dispatcher.call("selectionUpdated", this, Array.from(selectedRows));
+    })
+    .on("mouseover", function(event, d) {
+      if (isMouseDown) {
+        d3.select(this).classed("highlighted", true);
+        selectedRows.add(d);
+        dispatcher.call("selectionUpdated", this, Array.from(selectedRows));
+      }
+    });
+
+    // Reset mouse state when mouse is released outside the table
+    d3.select("body").on("mouseup", function() {
+      isMouseDown = false;
+    });
+
+    
     return chart;
   }
 

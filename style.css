@@ -154,3 +154,57 @@ tr.mouseover.selected{
 		box-shadow:4px 4px 10px rgba(0,0,0,0.8);
 	}
 }
+
+
+  /* Specific table styling for .my-table */
+.my-table {
+	width: 100%;
+	max-width: 650px; /* Keeps the table within the content column width */
+	margin: 20px auto;
+	border-collapse: collapse;
+	font-size: 14px;
+	font-family: inherit; /* Matches the general body font */
+	text-align: right;
+	border-spacing: 0;
+  }
+  
+/* Header styling for the table */
+.my-table th {
+	background-color: #f2f2f2;
+	color: #333;
+	font-weight: bold;
+	padding: 10px;
+	border-bottom: 2px solid #ddd;
+	text-align: center; /* Center-aligns headers */
+  }
+  
+/* Cell styling for rows */
+.my-table td {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	text-align: center; /* Aligns text in cells to center */
+  }
+  
+/* Row hover effect */
+.my-table tbody tr:hover {
+	background-color: #f5f5f5; /* Light gray on hover */
+  }
+
+
+  
+/* Style for rows selected via linking from other visualizations */
+.my-table .selected {
+	background-color: pink;
+  }
+  
+    
+/* Alternative row colors */
+.my-table tbody tr:nth-child(even) {
+	background-color: #f9f9f9;
+  }
+  
+/* Table border for better definition */
+.my-table {
+	border: 1px solid #ddd;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+  }
